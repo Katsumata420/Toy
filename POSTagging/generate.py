@@ -18,13 +18,13 @@ def test(args):
     util.trace('chainer config: {}'.format(chainer.global_config.__dict__))
 
     util.trace('load vocab...')
-    vocab_file = args.vocabdir+'/vocabulary.'
+    vocab_file = args.vocabdir+'/vocab.'
     source_vocab = util.Vocabulary.load(vocab_file+src)
     target_vocab = util.Vocabulary.load(vocab_file+tgt)
 
     util.trace('Loading Model ...') 
 
-    model = tag_model.LSTMlabel(source_vocab, target_vocab, args, src_word2vec, tgt_word2vec)
+    model = tag_model.LSTMlabel(source_vocab, target_vocab, args)
 
     if args.useGPU >= 0:
         import cupy as xp

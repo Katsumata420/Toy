@@ -77,7 +77,7 @@ class GRU_labeler(chainer.Chain):
         return loss, outputs
 
     def genHyp(self, batch_src):
-        first_state = list()
+        first_states = list()
         outputs = list()
 
         for word in batch_src:
@@ -85,7 +85,7 @@ class GRU_labeler(chainer.Chain):
 
         for first_hidden in first_states:
             forward_hidden = self.embed2hidden(first_hidden)
-            prd = chainFunc.argmax(self.W_2(first_hidden), axis=1)
+            prd = chainFunc.argmax(self.W_2(forward_hidden), axis=1)
             outputs.append(prd)
         
         return outputs

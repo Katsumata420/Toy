@@ -28,6 +28,11 @@ def train(args):
     util.trace('make vocab...')
     source_vocab = util.Vocabulary.make(corpus_file+source, 50000)
     target_vocab = util.Vocabulary.make(corpus_file+target, 10000)
+
+    util.trace('save vocab...')
+    source_vocab.save(args.savedir+'/vocab.'+source)
+    target_vocab.save(args.savedir+'/vocab.'+target)
+    exit()
         
     util.trace('making model...')
     #initialize model
