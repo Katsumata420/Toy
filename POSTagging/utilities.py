@@ -100,7 +100,7 @@ def gen_Npairs(src_corpus, tgt_corpus, src_vocab, tgt_vocab, N):
         Npairs = list()
         for line_src, line_tgt in zip(src, tgt):
             sent_src = list()
-            sent_tgt = [tgt_vocab.word2id['<bos>']]
+            sent_tgt = list()
             for word in line_src.strip().split():
                 sent_src.append(src_vocab.word2id[word])
             sent_src.append(src_vocab.word2id['<eos>'])

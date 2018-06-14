@@ -48,11 +48,19 @@ class GRU_labeler(chainer.Chain):
         loss = chainer.Variable(self.xp.zeros((), dtype = self.xp.float32))
         first_states = list()
         outputs = list()
+        """
+        util.trace('batch_src. length: {}'.format(len(batch_src)))
+        util.trace('batch_src, shape:{}'.format(batch_src[0].shape))
+        util.trace('batch_tgt. length: {}'.format(len(batch_tgt)))
+        util.trace('batch_tgt, shape:{}'.format(batch_tgt[0].shape))
+        """
         #filstlayer   
         for word in batch_src:
             first_states.append(chainFunc.dropout(self.word2embed(word), ratio=self.dropoutr))
-        #util.trace('first_states length:{}'.format(len(first_states)))
-        #util.trace('first state embedding:{}'.format(first_states[0].shape))
+        """
+        util.trace('first_states length:{}'.format(len(first_states)))
+        util.trace('first state embedding:{}'.format(first_states[0].shape))
+        """
 
         for first_hidden, pos in zip(first_states, batch_tgt):
             forward_hidden = chainFunc.dropout(self.embed2hidden(first_hidden), self.dropoutr)
@@ -61,7 +69,11 @@ class GRU_labeler(chainer.Chain):
             loss += chainFunc.softmax_cross_entropy(score, pos, ignore_label=-1)
             outputs.append(prd)
 
-        #util.trace('top state embedding:{}'.format(len(outputs)))
+        """
+        util.trace('top state embedding:{}'.format(len(prd)))
+        util.trace('score:{}'.format(score.shape))
+        exit()
+        """
         return loss, outputs
 
     def genHyp(self, batch_src):
