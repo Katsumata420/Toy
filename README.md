@@ -1,3 +1,7 @@
 # Toy
 Toy codes
-- POS tagging with Neural Networks
+## Content
+- `POStagging`: POS tagging with Neural Networks
+
+## DNN framework
+- chainer v1
